@@ -1,63 +1,38 @@
-# Bitcoin Widget Application
+# BTC Widget
 
-A modular Python project that exposes a small API for retrieving and displaying Bitcoin price information. The codebase is organised using a lightweight layered architecture so that the presentation layer can remain independent from the external price providers.
+Mini proyecto de ejemplo que ilustra cómo estructurar un paquete Python con layout `src/` para mostrar el precio del Bitcoin.
 
-## Project layout
+## Estructura
 
 ```
-bitcoin-widget/
+btc_widget/
 ├── src/
-│   └── bitcoin_widget/
+│   └── btcwidget/
 │       ├── __init__.py
-│       ├── application/
-│       │   └── price_service.py
-│       ├── config.py
-│       ├── domain/
-│       │   ├── models.py
-│       │   └── ports.py
-│       ├── infrastructure/
-│       │   ├── coingecko.py
-│       │   └── memory.py
-│       ├── main.py
-│       └── presentation/
-│           ├── formatter.py
-│           └── widget.py
+│       ├── application.py
+│       ├── domain.py
+│       ├── infrastructure.py
+│       └── presentation.py
 ├── tests/
+│   ├── __init__.py
+│   ├── conftest.py
 │   └── test_widget.py
-├── pyproject.toml
-├── requirements.txt
-├── setup.cfg
-└── README.md
+└── pyproject.toml
 ```
 
-## Getting started
+## Cómo ejecutar pruebas
 
-Install the dependencies into a virtual environment:
+1. Crear y activar un entorno virtual (por ejemplo `.venv`).
+2. Ejecutar los siguientes comandos para preparar el proyecto:
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+python -m pip install -U pip
+pip install -e .
+pip install -r requirements-dev.txt
 ```
 
-## Running the CLI demo
-
-The project exposes a small command line script that fetches the current Bitcoin price using the public CoinGecko API.
-
-```bash
-python -m bitcoin_widget.main
-```
-
-## Running the tests
+3. Lanzar la suite de pruebas:
 
 ```bash
 pytest
 ```
-
-## Configuration
-
-Configuration defaults live in `bitcoin_widget/config.py`. These settings can be customised by composing your own `PriceService` and `BitcoinWidget` instances.
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
