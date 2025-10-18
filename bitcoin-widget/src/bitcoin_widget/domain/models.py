@@ -15,6 +15,11 @@ class PriceQuote:
     source: str
     timestamp: datetime
 
+    def __post_init__(self) -> None:
+        """Normalise invariant fields after initialisation."""
+
+        object.__setattr__(self, "currency", self.currency.upper())
+
     @classmethod
     def from_raw(cls, value: float, currency: str, source: str) -> "PriceQuote":
         """Create a :class:`PriceQuote` from raw provider values."""
