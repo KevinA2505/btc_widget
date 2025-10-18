@@ -1,13 +1,25 @@
-from pathlib import Path
+"""Configuration helpers for the bitcoin_widget package."""
 
-APP_NAME = "CryptoWidget"
-CURRENCY = "usd"
-REFRESH_MS = 15_000  # 15s (luego podrás hacer esto configurable)
-HISTORY_POINTS = 120  # ~30 min si refrescas cada 15s
+from __future__ import annotations
 
-# Estilos
-THEME_QSS = (Path(__file__).parent / "ui" / "styles.qss").as_posix()
+from dataclasses import dataclass
+from datetime import timedelta
 
-# Iconos (opcionales por ahora)
-ICON_ICO = Path(__file__).parents[2] / "assets" / "icon.ico"
-ICON_PNG = Path(__file__).parents[2] / "assets" / "icon.png"
+
+def _default_poll_interval() -> timedelta:
+    """Return a sensible default polling interval for price updates."""
+
+    return timedelta(minutes=1)
+
+
+@dataclass(frozen=True)
+class Settings:
+    """Application level configuration."""
+
+    currency: str = "USD"
+    poll_interval: timedelta = _default_poll_interval()
+    data_source: str = "CoinGecko"
+
+
+DEFAULT_SETTINGS = Settings()
+"""Default configuration used by the CLI entry point and tests."""
