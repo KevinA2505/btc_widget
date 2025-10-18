@@ -63,3 +63,13 @@ def test_in_memory_provider_requires_matching_currency() -> None:
 
     with pytest.raises(ValueError):
         widget.fetch_price()
+
+
+def test_price_quote_normalises_currency() -> None:
+    quote = PriceQuote(value=39_500.0, currency="gbp", source="test", timestamp=datetime.now(timezone.utc))
+    provider = InMemoryPriceProvider(quotes=[quote])
+    widget = BitcoinWidget(service=PriceService(providers=[provider]), currency="GBP")
+
+    fetched_quote = widget.fetch_price()
+
+    assert fetched_quote.currency == "GBP"
