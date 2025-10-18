@@ -1,59 +1,63 @@
 # Bitcoin Widget Application
 
-This project is a Bitcoin widget application that allows users to view real-time Bitcoin data and interact with it through a user-friendly interface.
+A modular Python project that exposes a small API for retrieving and displaying Bitcoin price information. The codebase is organised using a lightweight layered architecture so that the presentation layer can remain independent from the external price providers.
 
-## Project Structure
+## Project layout
 
 ```
-bitcoin-widget
-├── src
-│   └── bitcoin_widget
+bitcoin-widget/
+├── src/
+│   └── bitcoin_widget/
 │       ├── __init__.py
+│       ├── application/
+│       │   └── price_service.py
+│       ├── config.py
+│       ├── domain/
+│       │   ├── models.py
+│       │   └── ports.py
+│       ├── infrastructure/
+│       │   ├── coingecko.py
+│       │   └── memory.py
 │       ├── main.py
-│       ├── widget.py
-│       ├── api.py
-│       ├── ui.py
-│       └── utils.py
-├── tests
-│   ├── __init__.py
+│       └── presentation/
+│           ├── formatter.py
+│           └── widget.py
+├── tests/
 │   └── test_widget.py
 ├── pyproject.toml
 ├── requirements.txt
 ├── setup.cfg
-├── .gitignore
 └── README.md
 ```
 
-## Installation
+## Getting started
 
-To set up the project, clone the repository and install the required dependencies:
+Install the dependencies into a virtual environment:
 
 ```bash
-git clone <repository-url>
-cd bitcoin-widget
+python -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Usage
+## Running the CLI demo
 
-To run the application, execute the following command:
-
-```bash
-python -m src.bitcoin_widget.main
-```
-
-## Testing
-
-To run the tests, use the following command:
+The project exposes a small command line script that fetches the current Bitcoin price using the public CoinGecko API.
 
 ```bash
-pytest tests/
+python -m bitcoin_widget.main
 ```
 
-## Contributing
+## Running the tests
 
-Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
+```bash
+pytest
+```
+
+## Configuration
+
+Configuration defaults live in `bitcoin_widget/config.py`. These settings can be customised by composing your own `PriceService` and `BitcoinWidget` instances.
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for more details.
+This project is licensed under the MIT License. See the LICENSE file for details.
