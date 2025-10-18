@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "bitcoin-widget"
+version = "0.1.0"
+description = "A Bitcoin widget application for displaying real-time Bitcoin data."
+authors = ["Your Name <youremail@example.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+requests = "^2.25.1"
+tkinter = "*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
